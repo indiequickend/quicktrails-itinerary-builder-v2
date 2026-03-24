@@ -3,7 +3,11 @@
 
 import { useState } from 'react';
 import { saveCatalogItem } from '@/actions/catalog';
-import { CldUploadWidget } from 'next-cloudinary';
+import dynamic from 'next/dynamic';
+
+
+
+const CldUploadWidget = dynamic(() => import('next-cloudinary').then(mod => mod.CldUploadWidget), { ssr: false });
 
 export default function NewCatalogItem() {
     const [formData, setFormData] = useState({

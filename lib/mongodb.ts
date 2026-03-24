@@ -7,7 +7,7 @@ console.log("DNS Servers:", await dns.getServers());
 await dns.setServers(["8.8.8.8", "4.2.2.2"]);
 console.log("DNS Servers:", await dns.getServers());
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI || "";
 
 if (!MONGODB_URI) {
     throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
@@ -25,7 +25,7 @@ export async function dbConnect() {
     }
 
     if (!cached.promise) {
-        const opts = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
+        const opts = { serverApi: { version: "1" as const, strict: true, deprecationErrors: true } };
 
         console.log("Attempting to connect to MongoDB Atlas...", MONGODB_URI);
 
