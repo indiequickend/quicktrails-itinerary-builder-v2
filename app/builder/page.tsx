@@ -549,9 +549,7 @@ function BuilderWorkspace() {
                                                                     <div className="flex items-center gap-3">
                                                                         {act.imageUrl ? (
                                                                             <img src={act.imageUrl} alt={act.title} className="w-10 h-10 object-cover rounded bg-gray-100 shrink-0" />
-                                                                        ) : (
-                                                                            <div className="w-10 h-10 bg-gray-100 rounded flex items-center justify-center text-gray-400 text-xs">📸</div>
-                                                                        )}
+                                                                        ) : null}
                                                                         <div>
                                                                             <span className="font-medium text-gray-900 text-sm">{act.title}</span>
                                                                             <div className="flex gap-1 mt-0.5">
@@ -677,13 +675,10 @@ function BuilderWorkspace() {
                                                             const displayId = act._id ? String(act._id) : act.instanceId;
                                                             return (
                                                                 < div key={displayId} className="avoid-break flex flex-col sm:flex-row gap-6 p-5 border border-gray-100 rounded-lg bg-gray-50 shadow-sm" >
-                                                                    <div className="w-full sm:w-48 h-32 shrink-0 rounded-md overflow-hidden bg-gray-200 border border-gray-100 shadow-inner">
-                                                                        {act.imageUrl ? (
-                                                                            <img src={act.imageUrl} alt={act.title} className="w-full h-full object-cover transition hover:scale-105 duration-700" crossOrigin="anonymous" />
-                                                                        ) : (
-                                                                            <div className="w-full h-full flex items-center justify-center text-3xl">📸</div>
-                                                                        )}
-                                                                    </div>
+                                                                    {act.imageUrl && <div className="w-full sm:w-48 h-32 shrink-0 rounded-md overflow-hidden bg-gray-200 border border-gray-100 shadow-inner">
+                                                                        <img src={act.imageUrl} alt={act.title} className="w-full h-full object-cover transition hover:scale-105 duration-700" crossOrigin="anonymous" />
+
+                                                                    </div>}
                                                                     <div className="flex-grow">
                                                                         <h4 className="font-bold text-xl text-gray-900 mb-1">{act.title}</h4>
                                                                         {act.tags && act.tags.length > 0 && (
