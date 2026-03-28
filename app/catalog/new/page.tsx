@@ -80,7 +80,7 @@ export default function NewCatalogItem() {
                         placeholder="e.g., Darjeeling, West Bengal"
                         value={formData.location}
                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                        className="mt-1 w-full p-2 border border-gray-300 rounded focus:ring-amber-500" required
+                        className="mt-1 w-full p-2 border border-gray-300 rounded focus:ring-amber-500"
                     />
                 </div>
 

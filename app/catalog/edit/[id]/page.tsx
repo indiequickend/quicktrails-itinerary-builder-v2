@@ -59,7 +59,7 @@ export default function EditCatalogItem() {
         <div className="max-w-3xl mx-auto p-8 bg-white shadow-sm mt-10 rounded-sm border border-gray-100">
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-serif font-bold text-gray-900">Edit Catalog Item</h1>
-                <button 
+                <button
                     onClick={() => router.push('/catalog')}
                     className="text-gray-500 hover:text-gray-800 text-sm"
                 >
@@ -112,7 +112,7 @@ export default function EditCatalogItem() {
                         placeholder="e.g., Darjeeling, West Bengal"
                         value={formData.location}
                         onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                        className="mt-1 w-full p-2 border border-gray-300 rounded focus:ring-amber-500" required
+                        className="mt-1 w-full p-2 border border-gray-300 rounded focus:ring-amber-500"
                     />
                 </div>
 
@@ -150,7 +150,7 @@ export default function EditCatalogItem() {
                             {formData.images.map((img, i) => (
                                 <div key={i} className="relative group">
                                     <img src={img.url} alt="Uploaded preview" className="h-20 w-20 object-cover rounded shadow-sm" />
-                                    <button 
+                                    <button
                                         type="button"
                                         onClick={() => setFormData(prev => ({ ...prev, images: prev.images.filter((_, idx) => idx !== i) }))}
                                         className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition shadow-sm"
