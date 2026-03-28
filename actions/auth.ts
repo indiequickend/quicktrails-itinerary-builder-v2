@@ -1,6 +1,6 @@
 'use server'
 
-import { signIn } from '@/auth';
+import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
 
 export async function authenticate(
@@ -15,7 +15,7 @@ export async function authenticate(
         await signIn('credentials', {
             email,
             password,
-            redirectTo: '/builder', // Force redirect here instead of relying on callbackUrl
+            redirectTo: '/itineraries', // Force redirect here instead of relying on callbackUrl
         });
     } catch (error) {
         if (error instanceof AuthError) {
@@ -31,3 +31,8 @@ export async function authenticate(
         throw error;
     }
 }
+
+export async function logout() {
+    await signOut({ redirectTo: '/' });
+}
+

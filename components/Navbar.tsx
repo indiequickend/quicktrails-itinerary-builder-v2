@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { logout } from '@/actions/auth';
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -43,6 +44,12 @@ export default function Navbar() {
                         <span className="text-xs text-gray-400 bg-gray-800 px-3 py-1 rounded-full border border-gray-700">
                             Admin Mode
                         </span>
+                        <button
+                            onClick={() => logout()}
+                            className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition"
+                        >
+                            Logout
+                        </button>
                     </div>
                 </div>
             </div>

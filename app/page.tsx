@@ -20,10 +20,10 @@ export default function Home() {
         {/* Navigation Actions */}
         <div className="flex flex-col w-full gap-3">
           <Link
-            href="/builder"
+            href="/itineraries"
             className="flex h-12 w-full items-center justify-center rounded bg-gray-900 px-5 text-white transition-colors hover:bg-gray-800 font-medium shadow-sm"
           >
-            Open Itinerary Builder
+            Manage Itineraries
           </Link>
           <Link
             href="/catalog"
