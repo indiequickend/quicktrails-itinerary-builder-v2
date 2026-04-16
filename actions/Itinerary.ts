@@ -110,3 +110,15 @@ export async function getItineraryById(id: string) {
         return { success: false, error: 'Failed to load itinerary' };
     }
 }
+
+export async function deleteItinerary(id: string) {
+    await dbConnect();
+    try {
+        await Itinerary.findByIdAndDelete(id);
+        revalidatePath('/itineraries');
+        return { success: true };
+    } catch (error) {
+        console.error("Delete error:", error);
+        return { success: false, error: 'Failed to delete itinerary' };
+    }
+}

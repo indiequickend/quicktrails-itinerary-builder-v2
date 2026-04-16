@@ -3,6 +3,8 @@ import { create } from 'zustand';
 interface BuilderState {
     tripTitle: string;
     setTripTitle: (title: string) => void;
+    totalPrice: string;
+    setTotalPrice: (price: string) => void;
     days: any[];
     addDay: () => void;
     updateDayTitle: (index: number, title: string) => void;
@@ -48,15 +50,16 @@ interface BuilderState {
 
     terms: string;
     setTerms: (text: string) => void;
+    reset: () => void;
 }
 
 export const useItineraryStore = create<BuilderState>((set) => ({
-    tripTitle: '6 Days North Bengal Expedition', // Default placeholder
-    durationText: '5 Nights / 6 Days',
-    days: [
-        { dayNumber: 1, dayTitle: 'Arrival in Darjeeling', activities: [] },
-    ],
+    tripTitle: '', // Default placeholder
+    totalPrice: '',
+    durationText: '',
+    days: [],
     setTripTitle: (title) => set({ tripTitle: title }),
+    setTotalPrice: (price) => set({ totalPrice: price }),
     addDay: () => set((state) => ({
         days: [...state.days, { dayNumber: state.days.length + 1, dayTitle: 'New Day', activities: [] }]
     })),
@@ -156,4 +159,16 @@ export const useItineraryStore = create<BuilderState>((set) => ({
 
     terms: '',
     setTerms: (text) => set({ terms: text }),
+    reset: () => set({
+        tripTitle: '',
+        durationText: '',
+        heroImage: '',
+        totalPrice: '',
+        b2bDetails: { isB2B: false, agencyName: '', logoUrl: '' },
+        days: [],
+        // inclusions: [],
+        // exclusions: [],
+        // terms: '',
+        // brandSettings: { companyName: '', primaryLogoUrl: '' },
+    }),
 }));

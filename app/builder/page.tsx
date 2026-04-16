@@ -39,6 +39,7 @@ function BuilderWorkspace() {
 
     const {
         tripTitle, setTripTitle,
+        totalPrice, setTotalPrice,
         durationText, setDurationText,
         days, addDay, removeDay, updateDayTitle, updateDayDescription, addActivityToDay, moveActivity, removeActivity,
         b2bDetails,
@@ -47,7 +48,7 @@ function BuilderWorkspace() {
         inclusions, updateInclusion, addInclusion, removeInclusion, setInclusions,
         exclusions, updateExclusion, addExclusion, removeExclusion, setExclusions,
         terms, setTerms,
-        loadItinerary
+        loadItinerary, reset
     } = useItineraryStore();
 
     useEffect(() => {
@@ -77,6 +78,8 @@ function BuilderWorkspace() {
                 if (res.data.inclusions.length === 0) setInclusions(brandData.defaultInclusions || []);
                 if (res.data.exclusions.length === 0) setExclusions(brandData.defaultExclusions || []);
                 if (res.data.terms === '') setTerms(brandData.defaultTerms || '');
+            } else {
+                reset()
             }
         }
         fetchDraft();
@@ -106,6 +109,7 @@ function BuilderWorkspace() {
         setIsSaving(true);
         const dataToSave = {
             tripTitle,
+            totalPrice,
             durationText,
             b2bDetails,
             days,
@@ -120,6 +124,7 @@ function BuilderWorkspace() {
             if (res.success) alert("Itinerary updated successfully!");
             else alert("Failed to update.");
         } else {
+
             const res = await createItinerary(dataToSave);
             if (res.success) {
                 alert("New itinerary created successfully!");
@@ -215,7 +220,7 @@ function BuilderWorkspace() {
             }
 
             const fileName = tripTitle
-                ? `${tripTitle.replace(/\s+/g, '_')}_QuickTrails.pdf`
+                ? `${durationText}_${tripTitle.replace(/\s+/g, '_')}_QuickTrails.pdf`
                 : 'QuickTrails_Itinerary.pdf';
 
             pdf.save(fileName);
@@ -294,6 +299,7 @@ function BuilderWorkspace() {
                                     <div className="space-y-3 mb-6">
                                         <input type="text" value={tripTitle} onChange={(e) => setTripTitle(e.target.value)} placeholder="Trip Title" className="w-full p-2 border border-gray-300 rounded outline-none" />
                                         <input type="text" value={durationText} onChange={(e) => setDurationText(e.target.value)} placeholder="Duration" className="w-full p-2 border border-gray-300 rounded outline-none" />
+                                        <input type="text" value={totalPrice} onChange={(e) => setTotalPrice(e.target.value)} placeholder="Price" className="w-full p-2 border border-gray-300 rounded outline-none" />
                                         {/* CLOUDINARY HERO IMAGE UPLOAD */}
                                         <div>
                                             <CldUploadWidget
@@ -639,9 +645,14 @@ function BuilderWorkspace() {
                                     <span className="w-8 h-0.5 bg-amber-400 inline-block"></span>
                                     {durationText || ''}
                                 </p>
-                                <h1 className="text-5xl font-serif font-bold text-white leading-tight drop-shadow-xl max-w-2xl">
-                                    {tripTitle || 'Untitled Itinerary'}
+                                <h1 className="text-4xl font-serif font-bold text-white leading-tight drop-shadow-xl max-w-2xl">
+                                    {tripTitle || ''}
                                 </h1>
+                                {totalPrice && (
+                                    <p className="text-2xl text-white mt-4 font-bold drop-shadow-md">
+                                        {totalPrice}
+                                    </p>
+                                )}
                             </div>
                         </div>
 

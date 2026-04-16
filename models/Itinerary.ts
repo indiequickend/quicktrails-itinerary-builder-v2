@@ -36,7 +36,7 @@ const itinerarySchema = new mongoose.Schema({
 
     inclusions: [{ type: String }],
     exclusions: [{ type: String }],
-    totalPrice: Number,
+    totalPrice: String,
     terms: String,
     status: { type: String, enum: ['DRAFT', 'FINALIZED'], default: 'DRAFT' },
 }, { timestamps: true });

@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getItineraries, duplicateItinerary } from '@/actions/Itinerary';
+import { getItineraries, duplicateItinerary, deleteItinerary } from '@/actions/Itinerary';
 import { useRouter } from 'next/navigation';
 
 export default function ItinerariesPage() {
@@ -72,8 +72,8 @@ export default function ItinerariesPage() {
                             <tr className="bg-white border-b border-gray-100 text-xs uppercase tracking-wider text-gray-500">
                                 <th className="p-4 font-medium">Trip Title</th>
                                 <th className="p-4 font-medium">Duration</th>
+                                <th className="p-4 font-medium">Price</th>
                                 <th className="p-4 font-medium">Type</th>
-                                <th className="p-4 font-medium">Status</th>
                                 <th className="p-4 font-medium text-right">Actions</th>
                             </tr>
                         </thead>
@@ -89,6 +89,7 @@ export default function ItinerariesPage() {
                                             <Link href={`/builder?id=${item._id}`}>{item.tripTitle}</Link>
                                         </td>
                                         <td className="p-4 text-sm text-gray-500">{item.durationText}</td>
+                                        <td className="p-4 text-sm text-gray-500">{item.totalPrice}</td>
                                         <td className="p-4 text-xs font-semibold text-gray-500">
                                             {item.b2bDetails?.isB2B ? (
                                                 <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded border border-blue-100">B2B: {item.b2bDetails.agencyName}</span>
@@ -96,11 +97,7 @@ export default function ItinerariesPage() {
                                                 <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded border border-gray-200">Direct</span>
                                             )}
                                         </td>
-                                        <td className="p-4 text-xs font-semibold">
-                                            <span className={`px-2 py-1 rounded border ${item.status === 'FINALIZED' ? 'bg-green-50 text-green-700 border-green-100' : 'bg-amber-50 text-amber-700 border-amber-100'}`}>
-                                                {item.status}
-                                            </span>
-                                        </td>
+
                                         <td className="p-4 text-right space-x-3">
                                             <button
                                                 onClick={() => handleDuplicate(item._id)}
@@ -114,6 +111,24 @@ export default function ItinerariesPage() {
                                                 className="text-sm text-amber-600 hover:text-amber-800 font-medium"
                                             >
                                                 Edit
+                                            </button>
+                                            <button
+                                                onClick={async () => {
+                                                    if (confirm('Are you sure you want to delete this itinerary?')) {
+                                                        setIsLoading(true);
+                                                        const res = await deleteItinerary(item._id);
+                                                        if (res.success) {
+                                                            await fetchItineraries();
+                                                        } else {
+                                                            alert('Failed to delete itinerary.');
+                                                        }
+                                                        setIsLoading(false);
+                                                    }
+                                                }}
+                                                className="text-sm text-red-600 hover:text-red-800 font-medium"
+                                                disabled={isLoading}
+                                            >
+                                                Delete
                                             </button>
                                         </td>
                                     </tr>
@@ -141,6 +156,7 @@ export default function ItinerariesPage() {
                         >
                             Next
                         </button>
+
                     </div>
                 </div>
             </div>
