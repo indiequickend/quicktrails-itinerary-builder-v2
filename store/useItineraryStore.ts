@@ -82,6 +82,7 @@ export const useItineraryStore = create<BuilderState>((set) => ({
     setB2bDetails: (details) => set({ b2bDetails: details }),
     loadItinerary: (data) => set({
         tripTitle: data.tripTitle || '',
+        totalPrice: data.totalPrice || '',
         durationText: data.durationText || '',
         heroImage: data.heroGallery?.[0] || '',
         b2bDetails: data.b2bDetails || { isB2B: false, agencyName: '', logoUrl: '' },
